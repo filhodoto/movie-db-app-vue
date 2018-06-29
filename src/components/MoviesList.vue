@@ -1,10 +1,14 @@
 <template>
     <ul>
-        <li v-for="(movie, key) in movies"> {{movie.original_title}}</li>
+        <li v-for="(movie, key) in movies">
+            <MovieThumb :movie="movie"/>
+        </li>
     </ul>
 </template>
 
 <script>
+  import MovieThumb from './MovieThumb';
+
   export default {
     name: "MoviesList",
     data() {
@@ -26,12 +30,22 @@
         } catch(e) {
           console.log(e);
         }
-
       }
+    },
+    components: {
+      MovieThumb
     }
   }
 </script>
 
 <style scoped>
+    ul {
+        display: grid;
+        list-style: none;
+        padding: 1rem;
+        margin: 0;
+        grid-row-gap: 1rem;
+        grid-template-columns: repeat(6, 1fr);
+    }
 
 </style>
