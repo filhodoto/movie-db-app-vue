@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <Header :title="headerTitle" />
+    <MoviesList />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header.vue';
+import MoviesList from './components/MoviesList.vue';
 
 export default {
   name: 'app',
@@ -15,7 +17,8 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    MoviesList
   }
 }
 </script>
