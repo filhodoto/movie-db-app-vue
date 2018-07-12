@@ -1,6 +1,9 @@
 <template>
     <header>
-        <img src="./../assets/logo.png"/><h1>{{title}}</h1>
+        <router-link to="/">
+            <img src="./../assets/logo.png"/>
+            <h1>{{title}}</h1>
+        </router-link>
     </header>
 </template>
 
@@ -26,6 +29,13 @@
     img {
         width: 50px;
         margin-right: 20px;
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
     }
 
 </style>
