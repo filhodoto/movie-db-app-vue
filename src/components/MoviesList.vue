@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="(movie, key) in movies">
-            <MovieThumb :movie="movie"/>
+            <MovieThumb :key="movie.id" :movie="movie"/>
         </li>
     </ul>
 </template>
