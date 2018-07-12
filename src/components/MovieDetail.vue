@@ -1,26 +1,60 @@
 <template>
-    <img :src="posterImg" :alt="movie.title">
+    <div class="movie-wrapper" :style="styles">
+        <div class="movie-info">
+            <h1>{{ movie.title }}</h1>
+            <h3>Release Date: {{ movie.release_date }}</h3>
+            <p>
+                {{ movie.overview }}
+            </p>
+        </div>
+    </div>
 </template>
 
 <script>
-  const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
+    const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
 
-  export default {
-    name: "MovieThumb",
-    props: ['movie'],
-    computed: {
-      posterImg: function () {
-        return `${POSTER_PATH}${this.movie.poster_path}`;
-      }
-    },
-    methods: {
+    export default {
+        name: "MovieDetail",
+        data() {
+            return {
+                movie: {}
+            }
+        },
+        created: function () {
+            this.fetchData();
+        },
+        methods: {
+            async fetchData() {
+                try {
+                    const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=b01d116084668e4b15d36351e4941996`);
+                    const movie = await res.json();
 
+                    // Add api response to our component data
+                    this.movie = movie;
+                } catch(e) {
+                    console.log('error ', e);
+                }
+            }
+        },
+        computed: {
+            styles() {
+                return {
+                    background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
+                }
+            }
+        }
     }
-  }
 </script>
 
 <style scoped>
-    img {
-        box-shadow: 0 0 35px black;
+    .movie-wrapper {
+        position: relative;
+        padding-top: 50vh;
+        background-size: cover;
+    }
+    .movie-info {
+        background: white;
+        color: #222;
+        padding: 2rem 10%;
     }
 </style>
