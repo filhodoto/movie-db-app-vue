@@ -1,7 +1,7 @@
 <template>
     <ul>
-        <li v-for="(movie, key) in movies">
-            <MovieThumb :key="movie.id" :movie="movie"/>
+        <li v-for="(movie, index) in movies" :key="movie.id">
+            <MovieThumb :key="movie.id" :index="index" :movie="movie"/>
         </li>
     </ul>
 </template>
@@ -28,7 +28,7 @@
 
                     this.movies = movies.results;
                 } catch (e) {
-                    console.log(e);
+                    console.log(e); // eslint-disable-line no-console
                 }
             }
         },
@@ -47,5 +47,4 @@
         grid-row-gap: 1rem;
         grid-template-columns: repeat(6, 1fr);
     }
-
 </style>

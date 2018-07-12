@@ -1,13 +1,15 @@
 <template>
-    <div class="movie-wrapper" :style="styles">
-        <div class="movie-info">
-            <h1>{{ movie.title }}</h1>
-            <h3>Release Date: {{ movie.release_date }}</h3>
-            <p>
-                {{ movie.overview }}
-            </p>
+    <transition name="animate-detail">
+        <div class="movie-wrapper" :style="styles">
+            <div class="movie-info">
+                <h1>{{ movie.title }}</h1>
+                <h3>Release Date: {{ movie.release_date }}</h3>
+                <p>
+                    {{ movie.overview }}
+                </p>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -23,6 +25,15 @@
         created: function () {
             this.fetchData();
         },
+        computed: {
+            styles() {
+                if (this.movie.backdrop_path) {
+                    return {
+                        background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
+                    }
+                }
+            }
+        },
         methods: {
             async fetchData() {
                 try {
@@ -32,17 +43,10 @@
                     // Add api response to our component data
                     this.movie = movie;
                 } catch(e) {
-                    console.log('error ', e);
+                    console.log('error ', e); // eslint-disable-line no-console
                 }
             }
         },
-        computed: {
-            styles() {
-                return {
-                    background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
-                }
-            }
-        }
     }
 </script>
 
@@ -57,4 +61,15 @@
         color: #222;
         padding: 2rem 10%;
     }
+
+    .animate-detail-enter-active,
+    .animate-detail-leave-active {
+        transition: all 0.3s ease;
+    }
+    .animate-detail-enter,
+    .animate-detail-leave-to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    
 </style>
