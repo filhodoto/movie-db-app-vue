@@ -1,6 +1,6 @@
 <template>
     <transition name="animate-detail">
-        <div class="movie-wrapper" :style="styles">
+        <div v-if="show" class="movie-wrapper" :style="styles">
             <div class="movie-info">
                 <h1>{{ movie.title }}</h1>
                 <h3>Release Date: {{ movie.release_date }}</h3>
@@ -19,7 +19,8 @@
         name: "MovieDetail",
         data() {
             return {
-                movie: {}
+                movie: {},
+                show: false
             }
         },
         created: function () {
@@ -42,6 +43,7 @@
 
                     // Add api response to our component data
                     this.movie = movie;
+                    this.show = true;
                 } catch(e) {
                     console.log('error ', e); // eslint-disable-line no-console
                 }
@@ -69,7 +71,6 @@
     .animate-detail-enter,
     .animate-detail-leave-to {
         opacity: 0;
-        transform: translateX(100%);
     }
     
 </style>
