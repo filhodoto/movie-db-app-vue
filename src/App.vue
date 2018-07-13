@@ -1,31 +1,36 @@
 <template>
-  <div id="app">
-    <Header :title="headerTitle" />
-    <router-view />
-  </div>
+    <div id="app">
+        <Header :title="headerTitle"/>
+        <router-view/>
+    </div>
 </template>
 
 <script>
-import Header from './components/Header.vue';
+    import Header from './components/Header.vue';
 
-export default {
-  name: 'app',
-  data() {
-    return {
-      headerTitle: 'movie database',
+    /**
+     * Component
+     */
+    export default {
+        name: 'app',
+        data() {
+            return {
+                headerTitle: 'movie database',
+            }
+        },
+        components: {
+            Header
+        }
     }
-  },
-  components: {
-    Header
-  }
-}
 </script>
 
 <style>
-  #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+    #app {
+        display: flex;
+        flex-flow: column;
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+    }
 </style>

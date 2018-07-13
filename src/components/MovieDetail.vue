@@ -1,25 +1,48 @@
 <template>
-    <transition name="animate-detail">
-        <div v-if="show" class="movie-wrapper" :style="styles">
-            <div class="movie-info">
-                <h1>{{ movie.title }}</h1>
-                <h3>Release Date: {{ movie.release_date }}</h3>
-                <p>
-                    {{ movie.overview }}
-                </p>
+    <div>
+        <Loader class="loader"
+                :animation-duration="1500"
+                :size="spinnerSize"
+                :color="'#42b883'"/>
+
+        <transition name="animate-detail">
+            <div v-if="show" class="movie-wrapper" :style="movieWrapperStyles">
+                <div class="movie-info">
+                    <h1>{{ movie.title }}</h1>
+                    <h3>Release Date: {{ movie.release_date }}</h3>
+                    <p>
+                        {{ movie.overview }}
+                    </p>
+                </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
 </template>
 
 <script>
-    const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
+    import styled from 'vue-styled-components';
+    import {TrinityRingsSpinner} from 'epic-spinners';
 
+    const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
+    const spinnerSize = 150;
+
+    /**
+     * Styled components
+     */
+    const Loader = styled(TrinityRingsSpinner)`
+      top: calc(50% - ${spinnerSize / 2}px);
+      left: calc(50% - ${spinnerSize / 2}px);
+    `;
+
+    /**
+     * Component
+     */
     export default {
         name: "MovieDetail",
         data() {
             return {
                 movie: {},
+                spinnerSize: spinnerSize,
                 show: false
             }
         },
@@ -27,13 +50,15 @@
             this.fetchData();
         },
         computed: {
-            styles() {
+            // Styles
+            movieWrapperStyles() {
                 if (this.movie.backdrop_path) {
                     return {
                         background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
                     }
                 }
             }
+
         },
         methods: {
             async fetchData() {
@@ -43,13 +68,23 @@
 
                     // Add api response to our component data
                     this.movie = movie;
-                    this.show = true;
-                } catch(e) {
+
+                    // gice small delay to test loader
+                    setTimeout(() => {
+                        this.show = true;
+                    }, 800);
+
+                } catch (e) {
                     console.log('error ', e); // eslint-disable-line no-console
                 }
             }
         },
+        components: {
+            TrinityRingsSpinner,
+            Loader
+        }
     }
+
 </script>
 
 <style scoped>
@@ -58,19 +93,26 @@
         padding-top: 50vh;
         background-size: cover;
     }
+
     .movie-info {
         background: white;
         color: #222;
         padding: 2rem 10%;
     }
 
+    .loader {
+        position: absolute;
+    }
+
     .animate-detail-enter-active,
     .animate-detail-leave-active {
-        transition: all 0.3s ease;
+        transition: all .5s ease;
     }
+
     .animate-detail-enter,
     .animate-detail-leave-to {
+        transition: all .5s ease;
         opacity: 0;
     }
-    
+
 </style>

@@ -9,6 +9,9 @@
 <script>
     import MovieThumb from './MovieThumb';
 
+    /**
+     * Component
+     */
     export default {
         name: "MoviesList",
         data() {

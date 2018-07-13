@@ -9,6 +9,9 @@
 <script>
     const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 
+    /**
+     * Component
+     */
     export default {
         name: "MovieThumb",
         props: ['movie', 'index'],
@@ -34,7 +37,6 @@
         },
         methods: {
             imgLoaded: function () {
-                console.log('img load');
                 this.loaded = true;
             },
         }
