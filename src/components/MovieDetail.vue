@@ -10,9 +10,12 @@
                 <div class="movie-info">
                     <h1>{{ movie.title }}</h1>
                     <h3>Release Date: {{ movie.release_date }}</h3>
-                    <p>
-                        {{ movie.overview }}
-                    </p>
+                    <p>{{ movie.overview }}</p>
+                    <div>
+                        <h4 v-if="isFavorite">Favorite</h4>
+                        <button v-else @click="addToFavorite(movie)">Add to Favorites</button>
+
+                    </div>
                 </div>
             </div>
         </transition>
@@ -21,7 +24,8 @@
 
 <script>
     import styled from 'vue-styled-components';
-    import {TrinityRingsSpinner} from 'epic-spinners';
+    import { mapActions, mapGetters } from 'vuex';
+    import { TrinityRingsSpinner } from 'epic-spinners';
 
     const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
     const spinnerSize = 150;
@@ -57,8 +61,11 @@
                         background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
                     }
                 }
+            },
+            isFavorite() {
+                // Use getters without mapGetters binding helper
+                return this.$store.getters.isFavorite(this.movie)
             }
-
         },
         methods: {
             async fetchData() {
@@ -77,7 +84,10 @@
                 } catch (e) {
                     console.log('error ', e); // eslint-disable-line no-console
                 }
-            }
+            },
+            ...mapActions({
+                addToFavorite: 'addToFavorite'
+            }),
         },
         components: {
             TrinityRingsSpinner,

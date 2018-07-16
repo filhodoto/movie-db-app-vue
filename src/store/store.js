@@ -1,19 +1,29 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
+/**
+ * Tell Vue to use Vuex
+ */
 Vue.use(Vuex);
 
+/**
+ * Export Store
+ */
 export default new Vuex.Store({
-    state: {
-        movies: {}
+    state: { // = data
+        movies: [],
+        favorites: []
     },
     mutations: {
         setMovies (state, movies) {
             state.movies = movies
+        },
+        addToFavorite (state, movie) {
+            state.favorites.push(movie);
         }
     },
-    actions: {
-        fetchMovies: async function (context) {
+    actions: { // = methods
+        async fetchMovies (context) {
             try {
                 const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=b01d116084668e4b15d36351e4941996&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
                 const movies = await res.json();
@@ -22,9 +32,21 @@ export default new Vuex.Store({
             } catch (e) {
                 console.log(e); // eslint-disable-line no-console
             }
+        },
+        addToFavorite (context, movieId) {
+            context.commit('addToFavorite', movieId);
         }
     },
-    getters: {
-
+    getters: { // = computed
+        isFavorite(state) {
+            return movieId => {
+                // See if this movie is in favorites array by returning filtered array
+                const response = state.favorites.filter(movie => {
+                    return movie.id === movieId.id;
+                });
+                // If response array as length, the it means movie is in favorites
+                return response.length > 0 ? true : false
+            }
+        }
     }
 })
