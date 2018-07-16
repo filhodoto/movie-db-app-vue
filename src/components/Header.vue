@@ -1,23 +1,40 @@
 <template>
     <header>
-        <router-link to="/">
-            <img src="./../assets/logo.png"/>
-            <h1>{{title}}</h1>
-        </router-link>
+        <section class="wrapper">
+            <router-link to="/">
+                <img src="./../assets/logo.png"/>
+                <h1>{{title}}</h1>
+            </router-link>
+            <ul class="icons-list">
+                <li><router-link to="/">home</router-link></li>
+                <li><button @click="toggleSearch">search</button></li>
+            </ul>
+        </section>
+        <Search />
     </header>
 </template>
 
 <script>
-  export default {
-    name: "Header",
-    props: {
-      title: String
-    },
-  }
+    import Search from './ui/Search';
+
+    export default {
+        name: "Header",
+        props: {
+            title: String
+        },
+        components: {
+            Search
+        },
+        methods: {
+            toggleSearch () {
+                this.$store.commit('toggleSearch');
+            }
+        }
+    }
 </script>
 
 <style scoped>
-    header {
+    .wrapper {
         background-color: #111;
         padding: 20px;
         color: white;

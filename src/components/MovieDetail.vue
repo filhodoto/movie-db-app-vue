@@ -24,7 +24,7 @@
 
 <script>
     import styled from 'vue-styled-components';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions } from 'vuex';
     import { TrinityRingsSpinner } from 'epic-spinners';
 
     const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';

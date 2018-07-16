@@ -11,15 +11,28 @@ Vue.use(Vuex);
  */
 export default new Vuex.Store({
     state: { // = data
-        movies: [],
-        favorites: []
+        movies: {
+            filtered: [],
+            all: [],
+            favorites: []
+        },
+        search: {
+            open: false,
+            text: ''
+        }
     },
     mutations: {
-        setMovies (state, movies) {
-            state.movies = movies
+        setAllMovies (state, movies) {
+            state.movies.all = movies
         },
         addToFavorite (state, movie) {
-            state.favorites.push(movie);
+            state.movies.favorites.push(movie);
+        },
+        toggleSearch (state) {
+            state.search.open = !state.search.open;
+        },
+        setSearchText (state, value) {
+            state.search.text = value;
         }
     },
     actions: { // = methods
@@ -28,7 +41,7 @@ export default new Vuex.Store({
                 const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=b01d116084668e4b15d36351e4941996&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
                 const movies = await res.json();
 
-                context.commit('setMovies', movies.results);
+                context.commit('setAllMovies', movies.results);
             } catch (e) {
                 console.log(e); // eslint-disable-line no-console
             }
@@ -41,7 +54,7 @@ export default new Vuex.Store({
         isFavorite(state) {
             return movieId => {
                 // See if this movie is in favorites array by returning filtered array
-                const response = state.favorites.filter(movie => {
+                const response = state.movies.favorites.filter(movie => {
                     return movie.id === movieId.id;
                 });
                 // If response array as length, the it means movie is in favorites
