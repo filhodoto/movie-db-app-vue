@@ -31,7 +31,6 @@
                 return {
                     "animation-delay": `${this.index / 10}s`,
                     "transition-delay": `${this.index/ 10}s`,
-
                 }
             }
         },
