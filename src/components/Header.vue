@@ -5,10 +5,11 @@
                 <img src="./../assets/logo.png"/>
                 <h1>{{title}}</h1>
             </router-link>
-            <ul class="icons-list">
-                <li><router-link to="/">home</router-link></li>
-                <li><button @click="toggleSearch">search</button></li>
-            </ul>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon @click="toggleSearch"><v-icon>search</v-icon></v-btn>
+            <router-link to="/"><v-btn icon><v-icon>home</v-icon></v-btn></router-link>
         </section>
         <Search />
     </header>
