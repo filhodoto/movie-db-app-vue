@@ -8,7 +8,10 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn icon @click="toggleSearch"><v-icon>search</v-icon></v-btn>
+            <v-btn icon @click="toggleSearch">
+                <v-icon v-if="!openSearch">search</v-icon>
+                <v-icon v-else>close</v-icon>
+            </v-btn>
             <router-link to="/"><v-btn icon><v-icon>home</v-icon></v-btn></router-link>
         </section>
         <Search />
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import Search from './ui/Search';
 
     export default {
@@ -26,10 +30,15 @@
         components: {
             Search
         },
+        computed: {
+            ...mapState({
+                openSearch: state => state.search.open
+            })
+        },
         methods: {
             toggleSearch () {
                 this.$store.commit('toggleSearch');
-            }
+            },
         }
     }
 </script>
