@@ -1,5 +1,9 @@
 <template>
-    <input v-show="openSearch" v-model="changeText" class="search" name="search" placeholder="Search movie..."/>
+    <transition name="fade">
+        <div v-if="openSearch" class="search-container">
+            <input v-model="changeText" class="search" name="search" placeholder="Search movie..."/>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -36,10 +40,14 @@
         font-weight: 700;
         border: none;
         background: white;
-        font-size: 2em;
+        font-size: 1.5em;
         color: #42b883;
         text-transform: uppercase;
         border-bottom: 5px solid  #42b883;
+    }
+
+    .search-container {
+        max-height: 90px;
     }
 
     .search:after {
@@ -47,4 +55,10 @@
         font-size: 80%;
     }
 
+    .fade-enter-active, .fade-leave-active {
+        transition: all .5s ease-in-out;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        max-height: 0;
+    }
 </style>
