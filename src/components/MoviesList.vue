@@ -23,7 +23,7 @@
         },
         computed: {
             ...mapState({
-                movies: state => state.movies.all
+                movies: state => state.movies.filtered
             }),
             ...mapActions({
                 fetchMovies: 'fetchMovies'

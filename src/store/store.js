@@ -25,6 +25,9 @@ export default new Vuex.Store({
         setAllMovies (state, movies) {
             state.movies.all = movies
         },
+        setFilteredMovies (state, movies) {
+            state.movies.filtered = movies
+        },
         addToFavorite (state, movie) {
             state.movies.favorites.push(movie);
         },
@@ -42,6 +45,16 @@ export default new Vuex.Store({
                 const movies = await res.json();
 
                 context.commit('setAllMovies', movies.results);
+            } catch (e) {
+                console.log(e); // eslint-disable-line no-console
+            }
+        },
+        async searchMovies(context) {
+            try {
+                const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=b01d116084668e4b15d36351e4941996&&query=${context.state.search.text}`);
+                const movies = await res.json();
+                console.log(movies);
+                context.commit('setFilteredMovies', movies.results);
             } catch (e) {
                 console.log(e); // eslint-disable-line no-console
             }

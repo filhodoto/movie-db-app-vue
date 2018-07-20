@@ -1,14 +1,28 @@
 <template>
     <transition name="fade">
         <div v-if="openSearch" class="search-container">
-            <input v-model="changeText" class="search" name="search" placeholder="Search movie..."/>
+            <input v-model="changeText"
+                   class="search"
+                   name="search"
+                   v-on:keyup.13="searchMovies"
+                   placeholder="Search movie..."/>
+            <v-btn large
+                   absolute
+                   flat
+                   depressed
+                   right
+                   class="action-button"
+                   v-show="searchText"
+                   icon>
+                <v-icon>search</v-icon>
+            </v-btn>
         </div>
     </transition>
 </template>
 
 <script>
     // Import Component Binding Helpers
-    import { mapState } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     export default {
         name: "Search",
@@ -16,6 +30,9 @@
             ...mapState({
                 openSearch: state => state.search.open,
                 searchText: state => state.search.text
+            }),
+            ...mapActions({
+                searchMovies: 'searchMovies',
             }),
             changeText: {
                 get: function () {
@@ -26,13 +43,20 @@
                     // Update store search text using a mutation
                     this.$store.commit('setSearchText', value);
                 }
-
             }
         }
     }
 </script>
 
 <style scoped>
+    .search-container {
+        max-height: 90px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .search {
         width: 100%;
         height: 100%;
@@ -46,13 +70,17 @@
         border-bottom: 5px solid  #42b883;
     }
 
-    .search-container {
-        max-height: 90px;
-    }
-
     .search:after {
         content: 'x';
         font-size: 80%;
+    }
+
+    .action-button{
+        color:  #42b883;
+    }
+
+    .action-button .v-icon {
+        font-size: 40px;
     }
 
     .fade-enter-active, .fade-leave-active {

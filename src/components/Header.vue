@@ -12,7 +12,7 @@
                 <v-icon v-if="!openSearch">search</v-icon>
                 <v-icon v-else>close</v-icon>
             </v-btn>
-            <router-link to="/"><v-btn icon><v-icon>home</v-icon></v-btn></router-link>
+            <v-btn icon to="/"><v-icon>home</v-icon></v-btn>
         </section>
         <Search />
     </header>
