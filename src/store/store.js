@@ -43,6 +43,10 @@ export default new Vuex.Store({
         },
         toggleSearch (state) {
             state.search.open = !state.search.open;
+
+            // Clean text
+            state.search.text = '';
+
         },
         setSearchText (state, value) {
             state.search.text = value;
@@ -59,7 +63,6 @@ export default new Vuex.Store({
             try {
                 const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=b01d116084668e4b15d36351e4941996&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
                 const movies = await res.json();
-
                 context.commit('setAllMovies', movies.results);
             } catch (e) {
                 console.log(e); // eslint-disable-line no-console
@@ -81,7 +84,10 @@ export default new Vuex.Store({
         },
         addToFavorite (context, movieId) {
             context.commit('addToFavorite', movieId);
-        }
+        },
+        closeSearch: function (context) {
+            context.state.search.open ? context.commit('toggleSearch') : null
+        },
     },
     getters: { // = computed
         isFavorite(state) {

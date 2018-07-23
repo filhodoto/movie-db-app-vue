@@ -1,5 +1,5 @@
 <template>
-    <router-link class="link" :to="moviePath">
+    <router-link class="link" :to="moviePath" @click.native="closeSearch">
         <transition name="flipX">
             <img :src="posterImg" :alt="movie.title" @load="imgLoaded" v-show="loaded" :style="styles">
         </transition>
@@ -8,6 +8,9 @@
 
 <script>
     const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
+
+    // Import Component Binding Helpers
+    import {mapState, mapActions} from 'vuex';
 
     /**
      * Component
@@ -21,6 +24,9 @@
             }
         },
         computed: {
+            ...mapState({
+                openSearch: state => state.search.open
+            }),
             posterImg: function () {
                 return `${POSTER_PATH}${this.movie.poster_path}`;
             },
@@ -35,9 +41,12 @@
             }
         },
         methods: {
+            ...mapActions({
+                closeSearch: 'closeSearch'
+            }),
             imgLoaded: function () {
                 this.loaded = true;
-            },
+            }
         }
     }
 </script>

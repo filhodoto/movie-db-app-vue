@@ -1,7 +1,7 @@
 <template>
     <header>
         <section class="wrapper">
-            <router-link to="/">
+            <router-link to="/" @click.native="closeSearch">
                 <img src="./../assets/logo.png"/>
                 <h1>{{title}}</h1>
             </router-link>
@@ -12,14 +12,14 @@
                 <v-icon v-if="!openSearch">search</v-icon>
                 <v-icon v-else>close</v-icon>
             </v-btn>
-            <v-btn icon to="/"><v-icon>home</v-icon></v-btn>
+            <v-btn icon to="/" @click.native="closeSearch"><v-icon>home</v-icon></v-btn>
         </section>
         <Search />
     </header>
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
     import Search from './ui/Search';
 
     export default {
@@ -36,6 +36,9 @@
             })
         },
         methods: {
+            ...mapActions({
+                closeSearch: 'closeSearch'
+            }),
             toggleSearch () {
                 this.$store.commit('toggleSearch');
             },

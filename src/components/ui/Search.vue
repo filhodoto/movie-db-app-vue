@@ -48,6 +48,7 @@
             ...mapActions({
                 searchMovies: 'searchMovies',
             }),
+
         }
     }
 </script>
@@ -59,6 +60,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
     .search {
@@ -86,7 +88,7 @@
     .fade-enter-active, .fade-leave-active {
         transition: all .5s ease-in-out;
     }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    .fade-enter, .fade-leave-to {
         max-height: 0;
     }
 </style>

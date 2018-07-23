@@ -23,7 +23,10 @@
         name: "MoviesList",
         // LifeCycle method (when component is created)
         created: function () {
-            this.fetchMovies;
+            // If we have empty movies, get random movies
+            if (this.movies.length == 0) {
+                this.fetchMovies;
+            }
         },
         computed: {
             ...mapState({
