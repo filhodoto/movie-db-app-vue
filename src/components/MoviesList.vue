@@ -49,7 +49,28 @@
         list-style: none;
         padding: 1rem;
         margin: 0;
-        grid-row-gap: 1rem;
-        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 1rem;
+        grid-template-columns: repeat(7, 1fr);
     }
+
+
+    @media screen and (max-width: 1024px) {
+        ul {
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        ul {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+
+    @media screen and (max-width: 600px) {
+        ul {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
 </style>

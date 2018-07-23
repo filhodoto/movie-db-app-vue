@@ -57,7 +57,7 @@
             movieWrapperStyles() {
                 if (this.movie.backdrop_path) {
                     return {
-                        background: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path}) no-repeat`
+                        backgroundImage: `url(${BAKCDROP_PATH}/${this.movie.backdrop_path})`
                     }
                 }
             },
@@ -101,6 +101,7 @@
         position: relative;
         padding-top: 50vh;
         background-size: cover;
+        background-position: center;
     }
 
     .movie-info {

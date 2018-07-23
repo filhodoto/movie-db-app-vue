@@ -52,7 +52,14 @@
 </script>
 
 <style scoped>
+    .link {
+        display: flex;
+        flex-direction: column;
+    }
+
     img {
+        width: 100%;
+        height: auto;
         box-shadow: 0 0 35px black;
     }
 

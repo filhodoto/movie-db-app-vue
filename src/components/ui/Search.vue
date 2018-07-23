@@ -24,7 +24,7 @@
 
 <script>
     // Import Component Binding Helpers
-    import { mapState, mapActions, mapGetters } from 'vuex';
+    import { mapState, mapActions } from 'vuex';
 
     export default {
         name: 'Search',
