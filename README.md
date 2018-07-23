@@ -12,6 +12,9 @@ Focus in
 
 ```
 - Vue
+- Vuex
+- Vuetify
+- Vue Router
 
 ```
 
