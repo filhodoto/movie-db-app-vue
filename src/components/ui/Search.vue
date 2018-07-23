@@ -1,10 +1,10 @@
 <template>
     <transition name="fade">
-        <div v-if="openSearch" class="search-container">
+        <div v-if="openSearch" v-focus class="search-container">
             <input v-model="changeText"
                    class="search"
-                   name="search"
-                   v-on:keyup.13="searchMovies"
+                   ref="search"
+                   v-on:keyup.13="triggerSearch"
                    placeholder="Search movie..."/>
             <v-btn large
                    absolute
@@ -13,7 +13,7 @@
                    right
                    class="action-button"
                    v-show="searchText"
-                   @click="searchMovies"
+                   @click="triggerSearch"
                    color="primary"
                    icon>
                 <v-icon>search</v-icon>
@@ -24,10 +24,10 @@
 
 <script>
     // Import Component Binding Helpers
-    import { mapState, mapActions } from 'vuex';
+    import { mapState, mapActions, mapGetters } from 'vuex';
 
     export default {
-        name: "Search",
+        name: 'Search',
         computed: {
             ...mapState({
                 openSearch: state => state.search.open,
@@ -48,8 +48,37 @@
             ...mapActions({
                 searchMovies: 'searchMovies',
             }),
+            triggerSearch: function () {
 
+                // If there's a query to be searched
+                if (this.searchText) {
+
+                    // If we're not in home page
+                    if (this.$route.path !== '/') {
+
+                        // Navigate to homepage
+                        this.$router.push({ path: '/' });
+
+                        // trigger search
+                        this.searchMovies();
+                    } else {
+                        // trigger search
+                        this.searchMovies();
+                    }
+                }
+            }
+        },
+        // Creative a custom directive to focus input when it's parent is created
+        // https://vuejs.org/v2/guide/custom-directive.html
+        directives: {
+            focus: {
+                // directive definition
+                inserted: function (el) {
+                    el.querySelector('.search').focus();
+                }
+            }
         }
+
     }
 </script>
 

@@ -40,9 +40,10 @@
                 closeSearch: 'closeSearch'
             }),
             toggleSearch () {
+
                 this.$store.commit('toggleSearch');
             },
-        }
+        },
     }
 </script>
 
