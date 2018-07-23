@@ -12,9 +12,8 @@
                     <h3>Release Date: {{ movie.release_date }}</h3>
                     <p>{{ movie.overview }}</p>
                     <div>
-                        <h4 v-if="isFavorite">Favorite</h4>
-                        <button v-else @click="addToFavorite(movie)">Add to Favorites</button>
-
+                        <v-btn v-if="isFavorite" class="favorite" icon><v-icon>favorite</v-icon></v-btn>
+                        <v-btn v-else icon @click="addToFavorite(movie)"><v-icon>favorite</v-icon></v-btn>
                     </div>
                 </div>
             </div>
@@ -24,7 +23,7 @@
 
 <script>
     import styled from 'vue-styled-components';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions } from 'vuex';
     import { TrinityRingsSpinner } from 'epic-spinners';
 
     const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
@@ -112,6 +111,10 @@
 
     .loader {
         position: absolute;
+    }
+
+    .favorite {
+        color: #FF5252;
     }
 
     .animate-detail-enter-active,
