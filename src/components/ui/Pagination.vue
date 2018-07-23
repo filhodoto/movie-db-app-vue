@@ -15,9 +15,6 @@
     import { mapState, mapActions, mapMutations } from 'vuex';
     export default {
         name: "Pagination",
-        beforeMount() {
-            this.$vuetify.theme.primary = '#4caf50';
-        },
         computed: {
             ...mapState({
                 totalPages: state => state.pagination.total_pages,

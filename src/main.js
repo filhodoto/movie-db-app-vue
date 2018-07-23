@@ -12,7 +12,11 @@ Vue.config.productionTip = false;
 /**
  * Tell Vue to use Vuetify
  */
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+    theme: {
+        primary: '#42b883'
+    }
+});
 
 new Vue({
     router,
