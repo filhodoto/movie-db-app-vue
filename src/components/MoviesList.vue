@@ -1,9 +1,12 @@
 <template>
-    <ul>
-        <li v-for="(movie, index) in movies" :key="movie.id">
-            <MovieThumb :key="movie.id" :index="index" :movie="movie"/>
-        </li>
-    </ul>
+    <div>
+        <ul>
+            <li v-for="(movie, index) in movies" :key="movie.id">
+                <MovieThumb :key="movie.id" :index="index" :movie="movie"/>
+            </li>
+        </ul>
+        <Pagination />
+    </div>
 </template>
 
 <script>
@@ -11,6 +14,7 @@
     import {mapState, mapActions} from 'vuex';
 
     import MovieThumb from './MovieThumb';
+    import Pagination from './ui/Pagination';
 
     /**
      * Component
@@ -23,14 +27,15 @@
         },
         computed: {
             ...mapState({
-                movies: state => state.movies.filtered
+                movies: state => state.movies.all
             }),
             ...mapActions({
                 fetchMovies: 'fetchMovies'
             })
         },
         components: {
-            MovieThumb
+            MovieThumb,
+            Pagination
         }
     }
 </script>

@@ -13,7 +13,8 @@
                    right
                    class="action-button"
                    v-show="searchText"
-                   @click.prevent="searchMovies"
+                   @click="searchMovies"
+                   color="primary"
                    icon>
                 <v-icon>search</v-icon>
             </v-btn>
@@ -76,10 +77,6 @@
     .search:after {
         content: 'x';
         font-size: 80%;
-    }
-
-    .action-button{
-        color:  #42b883;
     }
 
     .action-button .v-icon {

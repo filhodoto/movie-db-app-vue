@@ -1,8 +1,8 @@
 <template>
-    <div id="app">
+    <v-app dark id="app">
         <Header :title="headerTitle"/>
         <router-view/>
-    </div>
+    </v-app>
 </template>
 
 <script>
