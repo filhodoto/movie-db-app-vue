@@ -1,45 +1,35 @@
 <template>
-    <transition name="fade">
-        <div v-if="openSearch" class="search-container">
-            <input v-model="changeText"
-                   class="search"
-                   name="search"
-                   v-on:keyup.13="searchMovies"
-                   placeholder="Search movie..."/>
-            <v-btn large
-                   absolute
-                   flat
-                   depressed
-                   right
-                   class="action-button"
-                   v-show="searchText"
-                   @click="searchMovies"
-                   icon>
-                <v-icon>search</v-icon>
-            </v-btn>
-        </div>
-    </transition>
+    <div class="pagination-container text-xs-center">
+        <v-pagination
+                v-if="totalPages > 0"
+                v-model="page"
+                :length="totalPages"
+                :total-visible="5"
+                circle
+        ></v-pagination>
+    </div>
 </template>
 
 <script>
     // Import Component Binding Helpers
-    import { mapState, mapActions } from 'vuex';
-
+    import { mapState, mapActions, mapMutations } from 'vuex';
     export default {
-        name: "Search",
+        name: "Pagination",
+        beforeMount() {
+            this.$vuetify.theme.primary = '#4caf50';
+        },
         computed: {
             ...mapState({
-                openSearch: state => state.search.open,
-                searchText: state => state.search.text
+                totalPages: state => state.pagination.total_pages,
             }),
-            changeText: {
-                get: function () {
-                    // Get current search text value from store
-                    return this.searchText
+            // Not using mapState because for this we need a getter/setter implementation
+            page: {
+                get () {
+                    return this.$store.state.pagination.page
                 },
-                set: function (value) {
-                    // Update store search text using a mutation
-                    this.$store.commit('setSearchText', value);
+                async set (value) {
+                    await this.setPage(value);
+                    this.searchMovies();
                 }
             }
         },
@@ -47,49 +37,20 @@
             ...mapActions({
                 searchMovies: 'searchMovies',
             }),
+            ...mapMutations({
+                setPage: 'setPage'
+            })
         }
     }
 </script>
 
 <style scoped>
-    .search-container {
-        max-height: 90px;
-        position: relative;
+    .pagination-container {
+        position: absolute;
         display: flex;
         justify-content: center;
-        align-items: center;
-    }
-
-    .search {
+        bottom: 0;
+        padding-bottom: 30px;
         width: 100%;
-        height: 100%;
-        padding: 20px;
-        font-weight: 700;
-        border: none;
-        background: white;
-        font-size: 1.5em;
-        color: #42b883;
-        text-transform: uppercase;
-        border-bottom: 5px solid  #42b883;
-    }
-
-    .search:after {
-        content: 'x';
-        font-size: 80%;
-    }
-
-    .action-button{
-        color:  #42b883;
-    }
-
-    .action-button .v-icon {
-        font-size: 40px;
-    }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: all .5s ease-in-out;
-    }
-    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-        max-height: 0;
     }
 </style>

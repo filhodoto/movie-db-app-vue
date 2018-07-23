@@ -19,14 +19,24 @@ export default new Vuex.Store({
         search: {
             open: false,
             text: ''
+        },
+        pagination: {
+            page: 1,
+            total_pages: 0
         }
+
     },
     mutations: {
         setAllMovies (state, movies) {
             state.movies.all = movies
         },
         setFilteredMovies (state, movies) {
-            state.movies.filtered = movies
+            // Set filtered movies
+            state.movies.filtered = movies;
+
+            //TODO:: Maybe we can use only one list (filtered or all)
+            // Update all movies (the state moviesList renders) to be equal to filtered
+            state.movies.all = state.movies.filtered;
         },
         addToFavorite (state, movie) {
             state.movies.favorites.push(movie);
@@ -36,6 +46,12 @@ export default new Vuex.Store({
         },
         setSearchText (state, value) {
             state.search.text = value;
+        },
+        setPage (state, value) {
+            state.pagination.page = value;
+        },
+        setTotalPages (state, value) {
+            state.pagination.total_pages = value;
         }
     },
     actions: { // = methods
@@ -51,10 +67,14 @@ export default new Vuex.Store({
         },
         async searchMovies(context) {
             try {
-                const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=b01d116084668e4b15d36351e4941996&&query=${context.state.search.text}`);
+                const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=b01d116084668e4b15d36351e4941996&&query=${context.state.search.text}&page=${context.state.pagination.page}`);
                 const movies = await res.json();
-                console.log(movies);
+
+                // Set new movies results
                 context.commit('setFilteredMovies', movies.results);
+
+                // Update pages total for pagination
+                context.commit('setTotalPages', movies.total_pages);
             } catch (e) {
                 console.log(e); // eslint-disable-line no-console
             }
