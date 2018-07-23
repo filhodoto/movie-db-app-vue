@@ -13,6 +13,7 @@
                    right
                    class="action-button"
                    v-show="searchText"
+                   @click.prevent="searchMovies"
                    icon>
                 <v-icon>search</v-icon>
             </v-btn>
@@ -31,9 +32,6 @@
                 openSearch: state => state.search.open,
                 searchText: state => state.search.text
             }),
-            ...mapActions({
-                searchMovies: 'searchMovies',
-            }),
             changeText: {
                 get: function () {
                     // Get current search text value from store
@@ -44,6 +42,11 @@
                     this.$store.commit('setSearchText', value);
                 }
             }
+        },
+        methods: {
+            ...mapActions({
+                searchMovies: 'searchMovies',
+            }),
         }
     }
 </script>
