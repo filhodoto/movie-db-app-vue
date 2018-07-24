@@ -70,7 +70,7 @@ export default new Vuex.Store({
         },
         async searchMovies(context) {
             try {
-                const res = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=b01d116084668e4b15d36351e4941996&&query=${context.state.search.text}&page=${context.state.pagination.page}`);
+                const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=b01d116084668e4b15d36351e4941996&&query=${context.state.search.text}&page=${context.state.pagination.page}`);
                 const movies = await res.json();
 
                 // Set new movies results

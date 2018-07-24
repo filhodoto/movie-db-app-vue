@@ -6,6 +6,7 @@ import store from '@/store/store';
 import './assets/styles.css';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import 'vuetify/dist/vuetify.min.css'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
