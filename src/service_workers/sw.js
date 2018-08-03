@@ -12,15 +12,15 @@ if (workbox) {
 
     /**
      * Set Precaching
-     * This way it will precache everything we have in this sw.js (check precache-manifest.js in dist to see list of
-     * precache routes)
-     * If we want to define another list, without using all of the values in this file we can go to vue.config.js
-     * and include values manually like so:
+     * workbox-webpack-plugin (which we are using), will automatically precache files that are part of the webpack build pipeline by default.
+     *
+     * If we want to define another list we can go to vue.config.js and include values manually like so:
      * include: [
      *      /\.html$/,
      *      /(js).*\.*.js$/,
      *      /(css).*\.*.css$/,
      * ]
+     *
      */
     workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 

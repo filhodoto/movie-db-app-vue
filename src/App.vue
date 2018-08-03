@@ -1,6 +1,6 @@
 <template>
     <v-app dark id="app">
-        <Header :title="headerTitle"/>
+        <Header :title="headerTitle" :isOffline="isOffline"/>
         <router-view/>
     </v-app>
 </template>
@@ -16,11 +16,20 @@
         data() {
             return {
                 headerTitle: 'movie database',
+                isOffline: this.updateOfflineState()
+            }
+        },
+        updated() {
+            this.updateOfflineState()
+        },
+        methods: {
+            updateOfflineState() {
+                this.isOffline = !navigator.onLine;
             }
         },
         components: {
             Header
-        }
+        },
     }
 </script>
 

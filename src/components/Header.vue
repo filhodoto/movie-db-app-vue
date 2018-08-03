@@ -30,9 +30,7 @@
                 offlineText: "There's no internet connection. Some info might not be updated and some features might not work"
             }
         },
-        props: {
-            title: String
-        },
+        props: ['title', 'isOffline'],
         components: {
             Search
         },
@@ -40,9 +38,6 @@
             ...mapState({
                 openSearch: state => state.search.open
             }),
-            isOffline() {
-                return !navigator.onLine
-            }
         },
         methods: {
             ...mapActions({
