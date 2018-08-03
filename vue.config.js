@@ -7,6 +7,7 @@ module.exports = {
     pwa: {
         name: 'Vue Movie Database',
         themeColor: '#42b883',
+        msTileColor: '#F3357E',
         workboxPluginMode: 'InjectManifest',
         workboxOptions: {
             importWorkboxFrom: 'cdn', // define how we call workbox (no need to use importScripts in sw.js)
