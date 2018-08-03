@@ -24,6 +24,14 @@ if (workbox) {
      */
     workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
+
+    /**
+     * Set default page for Offline hard load
+     * In Single Page Applications we need a default page when we navigate to an url that is nos homepage offline,
+     * in this case we default to homepage
+     */
+    workbox.routing.registerNavigationRoute('/');
+
     /**
     * Tell service workers to skip default lifecycle
     * We're using it to cache api calls after first load, but this will affect all caches
