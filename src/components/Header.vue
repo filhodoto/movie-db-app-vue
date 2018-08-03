@@ -14,6 +14,7 @@
             </v-btn>
             <v-btn icon to="/" @click.native="closeSearch"><v-icon>home</v-icon></v-btn>
         </section>
+        <aside v-if="isOffline" class="feedback -offline">{{offlineText}}</aside>
         <Search />
     </header>
 </template>
@@ -24,6 +25,11 @@
 
     export default {
         name: "Header",
+        data() {
+            return {
+                offlineText: "There's no internet connection. Some info might not be updated and some features might not work"
+            }
+        },
         props: {
             title: String
         },
@@ -33,14 +39,16 @@
         computed: {
             ...mapState({
                 openSearch: state => state.search.open
-            })
+            }),
+            isOffline() {
+                return !navigator.onLine
+            }
         },
         methods: {
             ...mapActions({
                 closeSearch: 'closeSearch'
             }),
             toggleSearch () {
-
                 this.$store.commit('toggleSearch');
             },
         },
@@ -55,6 +63,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .feedback {
+        width: 100%;
+        display: flex;
+        padding: 20px;
+        align-items: flex-start;
+        background: #141221;
+        color: white;
+        font-size: 15px;
     }
 
     img {
