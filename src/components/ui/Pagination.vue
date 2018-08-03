@@ -1,7 +1,7 @@
 <template>
     <div class="pagination-container text-xs-center">
         <v-pagination
-                v-if="totalPages > 0"
+                v-if="totalPages > 1"
                 v-model="page"
                 :length="totalPages"
                 :total-visible="5"
