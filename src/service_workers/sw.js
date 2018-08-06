@@ -104,6 +104,11 @@ if (workbox) {
         workbox.strategies.staleWhileRevalidate({
             // Use a custom cache name
             cacheName: 'js-cache',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxAgeSeconds: 7 * 24 * 60 * 60,
+                }),
+            ]
         })
     );
 
