@@ -16,11 +16,14 @@
         data() {
             return {
                 headerTitle: 'movie database',
-                isOffline: this.updateOfflineState()
+                isOffline: null
             }
         },
+        created() {
+            this.updateOfflineState();
+        },
         updated() {
-            this.updateOfflineState()
+            this.updateOfflineState();
         },
         methods: {
             updateOfflineState() {
