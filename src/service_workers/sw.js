@@ -26,6 +26,14 @@ if (workbox) {
 
 
     /**
+     * Configure log levels
+     *
+     * https://developers.google.com/web/tools/workbox/guides/configure-workbox
+     */
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.error);
+
+
+    /**
      * Set default page for Offline hard load
      * In Single Page Applications we need a default page when we navigate to an url that is nos homepage offline,
      * in this case we default to homepage
@@ -33,10 +41,13 @@ if (workbox) {
     workbox.routing.registerNavigationRoute('/');
 
     /**
-    * Tell service workers to skip default lifecycle
-    * We're using it to cache api calls after first load, but this will affect all caches
-    * https://developers.google.com/web/tools/workbox/modules/workbox-sw#skip_waiting_and_clients_claim
-    */
+     * Tell service workers to skip default lifecycle
+     * We're using it to cache api calls after first load, but this will affect all caches
+     *
+     * "use skipWaiting and clientsClaim to force the new service worker to immediately take control of open pages"
+     *
+     * https://developers.google.com/web/tools/workbox/modules/workbox-sw#skip_waiting_and_clients_claim
+     */
     workbox.skipWaiting();
     workbox.clientsClaim();
 

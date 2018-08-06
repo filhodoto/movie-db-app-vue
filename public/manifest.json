@@ -1,6 +1,7 @@
 {
   "name": "Vue Movie Database",
   "short_name": "Vue MDB",
+  "description": "Simple movie database",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
@@ -13,8 +14,9 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#42b883"
+  "theme_color": "#42b883",
+  "lang": "en"
 }
