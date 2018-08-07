@@ -26,7 +26,7 @@
     import { mapActions } from 'vuex';
     import { TrinityRingsSpinner } from 'epic-spinners';
 
-    const BAKCDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
+    const BAKCDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
     const spinnerSize = 150;
 
     /**

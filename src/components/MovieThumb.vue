@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
+    const POSTER_PATH = 'https://image.tmdb.org/t/p/w154';
 
     // Import Component Binding Helpers
     import {mapState, mapActions} from 'vuex';
