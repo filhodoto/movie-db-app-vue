@@ -15,6 +15,9 @@ Focus in
 - Vuex
 - Vuetify
 - Vue Router
+- Progressive Web Apps (PWA)
+- Service Workers
+- Workbox
 
 ```
 
